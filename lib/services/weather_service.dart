@@ -49,9 +49,16 @@ class WeatherService {
     }
   }
 
-  String getWeatherCondition(String? condition) {
-    if (condition == null) {
-      return 'assets/lotties/sun.json';
+  String getWeatherCondition(Weather weather) {
+    final String condition = weather.condition.toLowerCase();
+    final isNight =
+        weather.lastUpdated.isBefore(weather.sunrise) ||
+        weather.lastUpdated.isAfter(weather.sunset);
+
+    String prefix = isNight ? 'night' : 'day';
+
+    if (condition.contains('clear sky')) {
+      return 'assets/lotties/${prefix}_clear.json';
     } else if (condition.toLowerCase().contains('light intensity drizzle') ||
         condition.toLowerCase().contains('drizzle') ||
         condition.toLowerCase().contains('heavy intensity drizzle') ||
@@ -60,11 +67,9 @@ class WeatherService {
         condition.toLowerCase().contains('heavy intensity drizzle rain') ||
         condition.toLowerCase().contains('shower rain and drizzle') ||
         condition.toLowerCase().contains('heavy shower rain and drizzle') ||
-        condition.toLowerCase().contains('shower drizzle')) {
-      return 'assets/lotties/drizzle.json';
-    } else if (condition.toLowerCase().contains(
-          'thunderstorm with light rain',
-        ) ||
+        condition.toLowerCase().contains('heavy shower rain and drizzle')) {
+      return 'assets/lotties/${prefix}_drizzle.json';
+    } else if (condition.toLowerCase().contains('thunderstorm with light rain') ||
         condition.toLowerCase().contains('thunderstorm with rain') ||
         condition.toLowerCase().contains('thunderstorm with heavy rain') ||
         condition.toLowerCase().contains('light thunderstorm') ||
@@ -75,16 +80,6 @@ class WeatherService {
         condition.toLowerCase().contains('thunderstorm with drizzle') ||
         condition.toLowerCase().contains('thunderstorm with heavy drizzle')) {
       return 'assets/lotties/thunderstorm.json';
-    } else if (condition.toLowerCase().contains('light intensity drizzle') ||
-        condition.toLowerCase().contains('drizzle') ||
-        condition.toLowerCase().contains('heavy intensity drizzle') ||
-        condition.toLowerCase().contains('light intensity drizzle rain') ||
-        condition.toLowerCase().contains('drizzle rain') ||
-        condition.toLowerCase().contains('heavy intensity drizzle rain') ||
-        condition.toLowerCase().contains('shower rain and drizzle') ||
-        condition.toLowerCase().contains('heavy shower rain and drizzle') ||
-        condition.toLowerCase().contains('heavy shower rain and drizzle')) {
-      return 'assets/lotties/drizzle.json';
     } else if (condition.toLowerCase().contains('light snow') ||
         condition.toLowerCase().contains('snow') ||
         condition.toLowerCase().contains('heavy snow') ||
@@ -101,7 +96,7 @@ class WeatherService {
         condition.toLowerCase().contains('scattered clouds: 25-50%') ||
         condition.toLowerCase().contains('broken clouds: 51-84%') ||
         condition.toLowerCase().contains('overcast clouds: 85-100%')) {
-      return 'assets/lotties/clouds.json';
+      return 'assets/lotties/${prefix}_clouds.json';
     } else if (condition.toLowerCase().contains('mist') ||
         condition.toLowerCase().contains('smoke') ||
         condition.toLowerCase().contains('haze') ||
@@ -113,7 +108,7 @@ class WeatherService {
         condition.toLowerCase().contains('tornado')) {
       return 'assets/lotties/atmosphere.json';
     } else {
-      return 'assets/lotties/sun.json';
+      return 'assets/lotties/${prefix}_clear.json';
     }
   }
 }

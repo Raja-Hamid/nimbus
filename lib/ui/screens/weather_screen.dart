@@ -25,9 +25,9 @@ class _WeatherScreenState extends State<WeatherScreen> {
         },
         child: Padding(
           padding: EdgeInsets.fromLTRB(
-            40.w,
-            (1.2 * kToolbarHeight).h,
-            40.w,
+            35.w,
+            (1.5 * kToolbarHeight).h,
+            35.w,
             20.w,
           ),
           child: SizedBox(
@@ -52,6 +52,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w300,
+                                  fontFamily: 'SAN FRANCISCO',
+                                  fontSize: 20.sp,
                                 ),
                                 textAlign: TextAlign.start,
                               ),
@@ -64,6 +66,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
+                                  fontSize: 20.sp,
                                 ),
                                 textAlign: TextAlign.start,
                               ),
@@ -102,7 +105,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                               ),
                               textAlign: TextAlign.center,
                             ),
-                            SizedBox(height: 30.h),
+                            SizedBox(height: 45.h),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [

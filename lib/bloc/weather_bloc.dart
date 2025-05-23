@@ -14,9 +14,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       emit(WeatherLoading());
       try {
         final Weather weather = await weatherService.fetchWeather();
-        final String condition = weatherService.getWeatherCondition(
-          weather.condition,
-        );
+        final String condition = weatherService.getWeatherCondition(weather);
         emit(WeatherSuccess(weather, condition));
       } catch (e) {
         emit(WeatherFailure());
