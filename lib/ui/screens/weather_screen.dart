@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nimbus/bloc/weather_bloc.dart';
 import 'package:nimbus/ui/widgets/background_gradient.dart';
+import 'package:nimbus/ui/widgets/live_date_time.dart';
 
 class WeatherScreen extends StatefulWidget {
   const WeatherScreen({super.key});
@@ -53,7 +54,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                   color: Colors.white,
                                   fontWeight: FontWeight.w300,
                                   fontFamily: 'SAN FRANCISCO',
-                                  fontSize: 20.sp,
+                                  fontSize: 18.sp,
                                 ),
                                 textAlign: TextAlign.start,
                               ),
@@ -66,7 +67,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 20.sp,
+                                  fontFamily: 'SAN FRANCISCO',
+                                  fontSize: 25.sp,
                                 ),
                                 textAlign: TextAlign.start,
                               ),
@@ -91,158 +93,67 @@ class _WeatherScreenState extends State<WeatherScreen> {
                               ),
                               textAlign: TextAlign.center,
                             ),
-                            Text(
-                              DateFormat('EEEE d - hh:mm a')
-                                  .format(state.weather.lastUpdated)
-                                  .replaceAllMapped(
-                                    RegExp(r'AM|PM'),
-                                    (match) => match.group(0)!.toLowerCase(),
-                                  ),
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w300,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
+                            LiveDateTime(),
                             SizedBox(height: 45.h),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            Table(
+                              columnWidths: const {
+                                0: FlexColumnWidth(),
+                                1: FlexColumnWidth(),
+                              },
                               children: [
-                                Row(
+                                TableRow(
                                   children: [
-                                    Image.asset(
+                                    _buildInfoTile(
+                                      'Sunrise',
                                       'assets/images/sunrise.png',
-                                      scale: 8,
+                                      DateFormat.jm().format(
+                                        state.weather.sunrise,
+                                      ),
                                     ),
-                                    SizedBox(width: 5.w),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Sunrise',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                        ),
-                                        SizedBox(height: 3.h),
-                                        Text(
-                                          DateFormat.jm().format(
-                                            state.weather.sunrise,
-                                          ),
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Image.asset(
+                                    _buildInfoTile(
+                                      'Sunset',
                                       'assets/images/sunset.png',
-                                      scale: 8,
-                                    ),
-                                    SizedBox(width: 5.w),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Sunset',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                        ),
-                                        SizedBox(height: 3.h),
-                                        Text(
-                                          DateFormat.jm().format(
-                                            state.weather.sunset,
-                                          ),
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
-                                      ],
+                                      DateFormat.jm().format(
+                                        state.weather.sunset,
+                                      ),
                                     ),
                                   ],
                                 ),
-                              ],
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(vertical: 15.h),
-                              child: Divider(
-                                color: Colors.grey.withAlpha(
-                                  (0.5 * 255).round(),
-                                ),
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
+                                TableRow(
                                   children: [
-                                    Image.asset(
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: 15.h,
+                                      ),
+                                      child: Divider(
+                                        color: Colors.grey.withAlpha(
+                                          (0.5 * 255).round(),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: 15.h,
+                                      ),
+                                      child: Divider(
+                                        color: Colors.grey.withAlpha(
+                                          (0.5 * 255).round(),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                TableRow(
+                                  children: [
+                                    _buildInfoTile(
+                                      'Temp Max',
                                       'assets/images/tempHigh.png',
-                                      scale: 8,
+                                      '${state.weather.tempMax.round()}°C',
                                     ),
-                                    SizedBox(width: 5.w),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Temp Max',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                        ),
-                                        SizedBox(height: 3.h),
-                                        Text(
-                                          '${state.weather.tempMax.round()}°C',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Image.asset(
+                                    _buildInfoTile(
+                                      'Temp Min',
                                       'assets/images/tempLow.png',
-                                      scale: 8,
-                                    ),
-                                    SizedBox(width: 5.w),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Temp Min',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                        ),
-                                        SizedBox(height: 3.h),
-                                        Text(
-                                          '${state.weather.tempMin.round()}°C',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
-                                      ],
+                                      '${state.weather.tempMin.round()}°C',
                                     ),
                                   ],
                                 ),
@@ -268,6 +179,37 @@ class _WeatherScreenState extends State<WeatherScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildInfoTile(String label, String assetPath, String value) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Image.asset(assetPath, scale: 8),
+        SizedBox(width: 8),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              label,
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+            SizedBox(height: 4),
+            Text(
+              value,
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

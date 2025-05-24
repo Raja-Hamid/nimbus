@@ -59,6 +59,17 @@ class WeatherService {
 
     if (condition.contains('clear sky')) {
       return 'assets/lotties/${prefix}_clear.json';
+    } else if (condition.toLowerCase().contains('light rain') ||
+        condition.toLowerCase().contains('moderate rain') ||
+        condition.toLowerCase().contains('heavy intensity rain') ||
+        condition.toLowerCase().contains('very heavy rain') ||
+        condition.toLowerCase().contains('extreme rain') ||
+        condition.toLowerCase().contains('freezing rain') ||
+        condition.toLowerCase().contains('light intensity shower rain') ||
+        condition.toLowerCase().contains('shower rain') ||
+        condition.toLowerCase().contains('heavy intensity shower rain') ||
+        condition.toLowerCase().contains('ragged shower rain')) {
+      return 'assets/lotties/${prefix}_rain.json';
     } else if (condition.toLowerCase().contains('light intensity drizzle') ||
         condition.toLowerCase().contains('drizzle') ||
         condition.toLowerCase().contains('heavy intensity drizzle') ||
@@ -69,7 +80,9 @@ class WeatherService {
         condition.toLowerCase().contains('heavy shower rain and drizzle') ||
         condition.toLowerCase().contains('heavy shower rain and drizzle')) {
       return 'assets/lotties/${prefix}_drizzle.json';
-    } else if (condition.toLowerCase().contains('thunderstorm with light rain') ||
+    } else if (condition.toLowerCase().contains(
+          'thunderstorm with light rain',
+        ) ||
         condition.toLowerCase().contains('thunderstorm with rain') ||
         condition.toLowerCase().contains('thunderstorm with heavy rain') ||
         condition.toLowerCase().contains('light thunderstorm') ||
@@ -92,10 +105,10 @@ class WeatherService {
         condition.toLowerCase().contains('shower snow') ||
         condition.toLowerCase().contains('heavy shower snow')) {
       return 'assets/lotties/snow.json';
-    } else if (condition.toLowerCase().contains('few clouds: 11-25%') ||
-        condition.toLowerCase().contains('scattered clouds: 25-50%') ||
-        condition.toLowerCase().contains('broken clouds: 51-84%') ||
-        condition.toLowerCase().contains('overcast clouds: 85-100%')) {
+    } else if (condition.toLowerCase().contains('few clouds') ||
+        condition.toLowerCase().contains('scattered clouds') ||
+        condition.toLowerCase().contains('broken clouds') ||
+        condition.toLowerCase().contains('overcast clouds')) {
       return 'assets/lotties/${prefix}_clouds.json';
     } else if (condition.toLowerCase().contains('mist') ||
         condition.toLowerCase().contains('smoke') ||
