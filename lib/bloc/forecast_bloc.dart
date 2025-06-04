@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nimbus/models/forecast.dart';
 import 'package:nimbus/services/forecast_service.dart';
+import 'package:nimbus/services/location_service.dart';
 
 part 'forecast_event.dart';
 part 'forecast_state.dart';
@@ -17,7 +18,8 @@ class ForecastBloc extends Bloc<ForecastEvent, ForecastState> {
   ) async {
     emit(ForecastLoading());
     try {
-      final forecast = await ForecastService.fetchForecast();
+      final position = await LocationService.getCurrentLocation();
+      final forecast = await ForecastService.fetchForecast(position);
       emit(ForecastSuccess(forecast));
     } catch (e) {
       emit(ForecastFailure(e.toString()));

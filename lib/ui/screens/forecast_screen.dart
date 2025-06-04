@@ -15,12 +15,6 @@ class ForecastScreen extends StatefulWidget {
 
 class _ForecastScreenState extends State<ForecastScreen> {
   @override
-  void initState() {
-    super.initState();
-    context.read<ForecastBloc>().add(FetchForecast());
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
