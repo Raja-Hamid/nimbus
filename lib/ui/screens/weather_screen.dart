@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
+import 'package:nimbus/bloc/forecast_bloc.dart';
 import 'package:nimbus/bloc/weather_bloc.dart';
+import 'package:nimbus/ui/screens/forecast_screen.dart';
 import 'package:nimbus/ui/widgets/background_gradient.dart';
 import 'package:nimbus/ui/widgets/live_date_time.dart';
 
@@ -158,6 +160,52 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                   ],
                                 ),
                               ],
+                            ),
+                            SizedBox(height: 30.h),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white.withAlpha(
+                                  (0.1 * 255).round(),
+                                ),
+                                shadowColor: Colors.white.withAlpha(
+                                  (0.2 * 255).round(),
+                                ),
+                                elevation: 8,
+                                padding: EdgeInsets.symmetric(vertical: 16.h),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.r),
+                                  side: BorderSide(
+                                    color: Colors.white.withAlpha(
+                                      (0.3 * 255).round(),
+                                    ),
+                                  ),
+                                ),
+                                minimumSize: Size(double.infinity, 50.h),
+                              ),
+                              child: Text(
+                                'View 7-Day Forecast',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.w500,
+                                  letterSpacing: 1.1,
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder:
+                                        (context) => BlocProvider(
+                                          create:
+                                              (context) =>
+                                                  ForecastBloc()
+                                                    ..add(FetchForecast()),
+                                          child: const ForecastScreen(),
+                                        ),
+                                  ),
+                                );
+                              },
                             ),
                           ],
                         ),
