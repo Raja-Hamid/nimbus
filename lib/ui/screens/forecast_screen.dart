@@ -166,7 +166,7 @@ class _ForecastScreenState extends State<ForecastScreen> {
       ),
       child: Center(
         child: Text(
-          '$label: $value',
+          '$label\n$value',
           style: TextStyle(color: Colors.white, fontSize: 13.sp),
         ),
       ),
